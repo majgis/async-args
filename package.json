@@ -1,0 +1,20 @@
+{
+  "name": "async-args",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/majgis/async-args.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/majgis/async-args/issues"
+  },
+  "homepage": "https://github.com/majgis/async-args#readme"
+}
