@@ -146,6 +146,14 @@ from the preceding function.
       aFunctionTakingOneArg                     // (arg2, arg4, next)
     ], next)
 
+## Concepts
+
+Think of async-args as a collection of factory functions which produce
+async functions to replace, select, or insert arguments.  You can explore an
+interactive code example [here][3].
+
+
 [0]: https://www.npmjs.com/package/async#waterfalltasks-callback
 [1]: https://www.npmjs.com/package/async#constantvalues
 [2]: https://www.npmjs.com/package/async
+[3]: https://tonicdev.com/majgis/async-args
