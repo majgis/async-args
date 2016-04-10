@@ -1,7 +1,7 @@
 {
   "name": "async-args",
   "version": "1.0.0",
-  "description": "",
+  "description": "A utility for use in conjunction with async.",
   "main": "index.js",
   "scripts": {
     "test": "tape tests/*.test.js",
