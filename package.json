@@ -1,6 +1,6 @@
 {
   "name": "async-args",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility for use in conjunction with async.",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,5 @@
     "tape": "^4.5.1",
     "fsmonitor": "^0.2.4"
   },
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
