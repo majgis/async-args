@@ -23,7 +23,14 @@ The disadvantage to these goals, similar to a microservices architecture, is
 that it pushes complexity to the integration layer.  This library is intended to 
 help manage that complexity.
 
-# Static Usage
+## Concepts
+
+Think of async-args as a collection of factory functions which produce
+async functions to replace, select, or insert arguments.  You can explore an
+interactive code example [here][3].
+
+
+## Static Usage
 
 The static library is returned from the require statement
 
@@ -74,7 +81,7 @@ Select a subset of arguments coming from the preceding function
     ], next)
 
 
-# Instance Usage
+## Instance Usage
 
 An instance is returned by calling the static library, which allows the storing 
 and retrieving of values from a context object.
@@ -145,13 +152,6 @@ from the preceding function.
       AsyncArgs.prependValues('arg2'),          // (arg4, next)
       aFunctionTakingOneArg                     // (arg2, arg4, next)
     ], next)
-
-## Concepts
-
-Think of async-args as a collection of factory functions which produce
-async functions to replace, select, or insert arguments.  You can explore an
-interactive code example [here][3].
-
 
 [0]: https://www.npmjs.com/package/async#waterfalltasks-callback
 [1]: https://www.npmjs.com/package/async#constantvalues
