@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape tests/*.test.js",
+    "test-auto": "fsmonitor -s '!.*' faucet"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/majgis/async-args/issues"
   },
-  "homepage": "https://github.com/majgis/async-args#readme"
+  "homepage": "https://github.com/majgis/async-args#readme",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "tape": "^4.5.1",
+    "fsmonitor": "^0.2.4"
+  },
+  "dependencies": {
+
+  }
 }
