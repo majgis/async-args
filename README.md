@@ -38,7 +38,8 @@ interactive code example [here][3].
 * [prependConstants](#asyncargsprependconstantsconstant-constant-)
 * [select](#asyncargsselectbool-bool-)
 
-[Instance Usage](#instance-usage)
+[Instance Usage](#instance-usage)  
+The same static methods as above are available, in addition to the following:
 
 * [store](#asyncargsstorekey1-key2-)
 * [values](#asyncargsvalueskey1-key2-)
