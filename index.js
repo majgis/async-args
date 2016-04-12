@@ -134,17 +134,6 @@ function selectFactory (){
   }
 }
 
-function flattenFactory(){
-  var flattenBools = Array.prototype.slice.call(arguments)
-  return function flatten(){
-    var args = Array.prototype.slice.call(arguments)
-    var lastArgIndex = args.length - 1
-    var next = args[lastArgIndex]
-    args = args.slice(0, lastArgIndex)
-    
-  }
-}
-
 function AsyncArgs(lookup) {
   lookup = lookup || {}
   return {
