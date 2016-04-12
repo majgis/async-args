@@ -126,7 +126,7 @@ object.  Arguments from the preceding function pass through.
 
     async.waterfall([
       outputArg1Arg2Arg3,                       // (next)
-      AsyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
+      asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgs                  // (arg1, arg2, arg3, next)
     ], next)
 
@@ -137,9 +137,9 @@ adjoining function.  Arguments from the preceding function are omitted.
 
     async.waterfall([
       outputArg1Arg2Arg3,                       // (next)
-      AsyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
+      asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgsAndOutputArg4,    // (arg1, arg2, arg3, next)
-      AsyncArgs.values('arg2'),                 // (arg4, next)
+      asyncArgs.values('arg2'),                 // (arg4, next)
       aFunctionTakingOneArg                     // (arg2, next)     
     ], next)
 
@@ -150,9 +150,9 @@ from the preceding function.
 
     async.waterfall([
       outputArg1Arg2Arg3,                       // (next)
-      AsyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
+      asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgsAndOutputArg4,    // (arg1, arg2, arg3, next)
-      AsyncArgs.appendValues('arg2'),           // (arg4, next)
+      asyncArgs.appendValues('arg2'),           // (arg4, next)
       aFunctionTakingOneArg                     // (arg4, arg2, next)
     ], next)
 
@@ -163,9 +163,9 @@ from the preceding function.
 
     async.waterfall([
       outputArg1Arg2Arg3,                       // (next)
-      AsyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
+      asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgsAndOutputArg4,    // (arg1, arg2, arg3, next)
-      AsyncArgs.prependValues('arg2'),          // (arg4, next)
+      asyncArgs.prependValues('arg2'),          // (arg4, next)
       aFunctionTakingOneArg                     // (arg2, arg4, next)
     ], next)
 
