@@ -1,6 +1,6 @@
 {
   "name": "async-args",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility for use in conjunction with async.",
   "main": "index.js",
   "scripts": {
