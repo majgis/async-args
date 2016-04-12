@@ -43,7 +43,7 @@ interactive code example [here][3].
 * [store](#asyncargsstorekey1-key2-)
 * [values](#asyncargsvalueskey1-key2-)
 * [appendValues](#asyncargsappendvalueskey1-key2-)
-* [prpendValues](#asyncargsprependvalueskey1-key2-)
+* [prependValues](#asyncargsprependvalueskey1-key2-)
 
 ## Static Usage
 
