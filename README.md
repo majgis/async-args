@@ -29,6 +29,21 @@ Think of async-args as a collection of factory functions which produce
 async functions to replace, select, or insert arguments.  You can explore an
 interactive code example [here][3].
 
+## API
+
+[Static Usage](#static-usage)
+
+* [constants](#asyncargsconstantsconstant-constant-)
+* [appendConstants](#asyncargsappendconstantsconstant-constant-)
+* [prependConstants](#asyncargsprependconstantsconstant-constant-)
+* [select](#asyncargsselectbool-bool-)
+
+[Instance Usage](#instance-usage)
+
+* [store](#asyncargsstorekey1-key2-)
+* [values](#asyncargsvalueskey1-key2-)
+* [appendValues](#asyncargsappendvalueskey1-key2-)
+* [prpendValues](#asyncargsprependvalueskey1-key2-)
 
 ## Static Usage
 
