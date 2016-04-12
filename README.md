@@ -88,9 +88,10 @@ Prepend constants to the arguments coming from the preceding function
 
 ###AsyncArgs.select([selector], [selector], ...])
 
-**selector:** boolean or [JSON Pointer][4]
+**selector:** boolean, [JSON Pointer][4] or array of JSON Pointers
 
-Select a subset of arguments coming from the preceding function.  
+A selector can be a string, to select a subset of arguments coming from the 
+preceding function.  
 
     async.waterfall([
       outputArg1Arg2Arg3,                    // (next)
@@ -98,14 +99,24 @@ Select a subset of arguments coming from the preceding function.
       aFunctionTakingOneArg                  // (arg3, next)
     ], next)
 
-A [JSON Pointer][4] can be used to select an array item or object property from 
-an argument
+A selector can be a [JSON Pointer][4], to select an array item or object 
+property from an argument.
 
     var constant = {a:{b:['c','d']}}
     async.waterfall([
       AsyncArgs.constants(constant, constant), // (next)
       AsyncArgs.select('/a/b/1', /a/b/0'),     // (constant, constant, next)
-      aFunctionTakingOneArg                    // ('d', 'c', next)
+      aFunctionTakingTwoArgs                   // ('d', 'c', next)
+    ], next)
+    
+A selector can be an array of [JSON Pointers][4], to select multiple array 
+items or object properties from a single argument.
+
+    var constant = {a:{b:['c','d']}}
+    async.waterfall([
+      AsyncArgs.constants(constant),          // (next)
+      AsyncArgs.select(['/a/b/1', /a/b/0']),  // (constant, next)
+      aFunctionTakingTwoArgs                  // ('d', 'c', next)
     ], next)
 
 ## Instance Usage

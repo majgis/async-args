@@ -68,6 +68,30 @@ test('AsyncArgs.select: jsonpointer works with deeply nested object',
     })
   })
 
+test('AsyncArgs.select: array of jsonpointers ',
+  function (t) {
+    t.plan(3)
+    var expected1 = 'h'
+    var expected2 = 'e'
+    var obj = {
+      b:{
+        c:{
+          d:[
+            'e',
+            'f',
+            {g: 'h'}
+          ]
+        }
+      }
+    }
+    var selector = ['/b/c/d/2/g', '/b/c/d/0']
+    subject.select(false, selector)('a', obj, function (err, actual1, actual2) {
+      t.error(err)
+      t.equal(actual1, expected1)
+      t.equal(actual2, expected2)
+    })
+  })
+
 test('asyncArgs.prependValues: prepends arguments to the next function',
   function (t) {
     t.plan(2)

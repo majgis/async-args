@@ -129,9 +129,14 @@ function selectFactory (){
       if (selectArg){
         var arg = args[i]
         if (typeof selectArg === 'string' && selectArg.indexOf('/') === 0){
-          arg = jp.get(arg, selectArg)
+          newArgs.push(jp.get(arg, selectArg))
+        } else if (selectArg instanceof Array){
+          for (var j = 0; j < selectArg.length; j++){
+            newArgs.push(jp.get(arg, selectArg[j]))
+          }
+        } else {
+          newArgs.push(arg)
         }
-        newArgs.push(arg)
       }
     }
     newArgs.unshift(null)
