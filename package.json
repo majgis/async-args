@@ -23,5 +23,7 @@
     "tape": "^4.5.1",
     "fsmonitor": "^0.2.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jsonpointer": "^3.0.0"
+  }
 }

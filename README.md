@@ -86,9 +86,11 @@ Prepend constants to the arguments coming from the preceding function
       aFunctionTakingTwoArgs               // (arg2, arg1, next)
     ], next)
 
-###AsyncArgs.select([bool], [bool], ...])
+###AsyncArgs.select([selector], [selector], ...])
 
-Select a subset of arguments coming from the preceding function
+**selector:** boolean or [JSON Pointer][4]
+
+Select a subset of arguments coming from the preceding function.  
 
     async.waterfall([
       outputArg1Arg2Arg3,                    // (next)
@@ -96,6 +98,15 @@ Select a subset of arguments coming from the preceding function
       aFunctionTakingOneArg                  // (arg3, next)
     ], next)
 
+A [JSON Pointer][4] can be used to select an array item or object property from 
+an argument
+
+    var constant = {a:{b:['c','d']}}
+    async.waterfall([
+      AsyncArgs.constants(constant, constant), // (next)
+      AsyncArgs.select('/a/b/1', /a/b/0'),     // (constant, constant, next)
+      aFunctionTakingOneArg                    // ('d', 'c', next)
+    ], next)
 
 ## Instance Usage
 
@@ -173,3 +184,4 @@ from the preceding function.
 [1]: https://www.npmjs.com/package/async#constantvalues
 [2]: https://www.npmjs.com/package/async
 [3]: https://tonicdev.com/majgis/async-args
+[4]: https://www.npmjs.com/package/jsonpointer

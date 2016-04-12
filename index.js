@@ -1,3 +1,5 @@
+var jp = require('jsonpointer')
+
 function storeMetaFactory(lookup) {
   return function storeFactory() {
     var keys = Array.prototype.slice.call(arguments)
@@ -115,17 +117,21 @@ function prependConstantsFactory() {
 }
 
 function selectFactory (){
-  var selectBools = Array.prototype.slice.call(arguments)
+  var selectArgs = Array.prototype.slice.call(arguments)
   return function select(){
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = args.slice(0, lastArgIndex)
     var newArgs = []
-    for (var i = 0; i < selectBools.length; i++){
-      var selectBool = selectBools[i]
-      if (selectBool){
-        newArgs.push(args[i])
+    for (var i = 0; i < selectArgs.length; i++){
+      var selectArg = selectArgs[i]
+      if (selectArg){
+        var arg = args[i]
+        if (typeof selectArg === 'string' && selectArg.indexOf('/') === 0){
+          arg = jp.get(arg, selectArg)
+        }
+        newArgs.push(arg)
       }
     }
     newArgs.unshift(null)
