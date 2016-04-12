@@ -19,9 +19,9 @@ function storeMetaFactory(lookup) {
 }
 
 function valuesMetaFactory(lookup) {
-  return function argsOutter() {
+  return function valuesFactory() {
     var keys = Array.prototype.slice.call(arguments)
-    return function argsInner() {
+    return function values() {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -37,9 +37,9 @@ function valuesMetaFactory(lookup) {
 }
 
 function appendValuesMetaFactory(lookup) {
-  return function appendArgsOutter() {
+  return function appendValuesFactory() {
     var keys = Array.prototype.slice.call(arguments)
-    return function appendArgsInner() {
+    return function appendValues() {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -57,9 +57,9 @@ function appendValuesMetaFactory(lookup) {
 }
 
 function prependValuesMetaFactory(lookup) {
-  return function prependArgsOutter() {
+  return function prependValuesFactory() {
     var keys = Array.prototype.slice.call(arguments)
-    return function prependArgsInner() {
+    return function prependValues() {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -78,7 +78,7 @@ function prependValuesMetaFactory(lookup) {
 
 function constantsFactory() {
   var outterArgs = Array.prototype.slice.call(arguments)
-  return function constantsInner() {
+  return function constants() {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
@@ -90,8 +90,7 @@ function constantsFactory() {
 
 function appendConstantsFactory() {
   var outterArgs = Array.prototype.slice.call(arguments)
-
-  return function constantsAppend() {
+  return function appendConstants() {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
@@ -104,7 +103,7 @@ function appendConstantsFactory() {
 
 function prependConstantsFactory() {
   var outterArgs = Array.prototype.slice.call(arguments)
-  return function appendArgsInner() {
+  return function prependConstants() {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
