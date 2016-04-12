@@ -38,7 +38,7 @@ The static library is returned from the require statement
     
 The following methods are available:
 
-**AsyncArgs.constants([constant], [constant], ...)**
+###AsyncArgs.constants([constant], [constant], ...)
 
 Pass constants as arguments to the adjoining function.  Arguments from the 
 preceding function are omitted.  This method is equivalent to 
@@ -50,7 +50,7 @@ preceding function are omitted.  This method is equivalent to
     ], next)
 
 
-**AsyncArgs.appendConstants([constant], [constant], ...)**
+###AsyncArgs.appendConstants([constant], [constant], ...)
 
 Append constants to the arguments coming from the preceding function.
 
@@ -60,7 +60,7 @@ Append constants to the arguments coming from the preceding function.
       aFunctionTakingTwoArgs              // (arg1, arg2, next)
     ], next)
 
-**AsyncArgs.prependConstants([constant], [constant], ...)**
+###AsyncArgs.prependConstants([constant], [constant], ...)
 
 Prepend constants to the arguments coming from the preceding function
 
@@ -70,7 +70,7 @@ Prepend constants to the arguments coming from the preceding function
       aFunctionTakingTwoArgs               // (arg2, arg1, next)
     ], next)
 
-**AsyncArgs.select([bool], [bool], ...])**
+###AsyncArgs.select([bool], [bool], ...])
 
 Select a subset of arguments coming from the preceding function
 
@@ -103,7 +103,7 @@ for later use.
 The same static methods as above are available, along with the following 
 methods unique to instances:
 
-**asyncArgs.store([key1], [key2], ...)**
+###asyncArgs.store([key1], [key2], ...)
 
 Store selected arguments coming from the previous function to the context 
 object.  Arguments from the preceding function pass through.
@@ -114,7 +114,7 @@ object.  Arguments from the preceding function pass through.
       aFunctionTakingThreeArgs                  // (arg1, arg2, arg3, next)
     ], next)
 
-**asyncArgs.values([key1], [key2], ...)**
+###asyncArgs.values([key1], [key2], ...)
 
 Pull specific values from the context object and pass as arguments to the 
 adjoining function.  Arguments from the preceding function are omitted.
@@ -127,7 +127,7 @@ adjoining function.  Arguments from the preceding function are omitted.
       aFunctionTakingOneArg                     // (arg2, next)     
     ], next)
 
-**asyncArgs.appendValues([key1], [key2], ...)**
+###asyncArgs.appendValues([key1], [key2], ...)
 
 Pull specific values from the context object and append to the arguments coming
 from the preceding function. 
@@ -140,7 +140,7 @@ from the preceding function.
       aFunctionTakingOneArg                     // (arg4, arg2, next)
     ], next)
 
-**asyncArgs.prependValues([key1], [key2], ...)**
+###asyncArgs.prependValues([key1], [key2], ...)
 
 Pull specific values from the context object and prepend to the arguments coming
 from the preceding function.
