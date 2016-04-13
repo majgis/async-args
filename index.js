@@ -1,5 +1,24 @@
 var jp = require('jsonpointer')
 
+var nextTick
+if (process && process.nextTick) {
+  nextTick = function nextTick (next, args) {
+    var callback = nextApplyFactory(next, args)
+    process.nextTick(callback)
+  }
+} else {
+  nextTick = function nextTick(next, args) {
+    var callback = nextApplyFactory(next, args)
+    setTimeout(callback, 0)
+  }
+}
+
+function nextApplyFactory(next, args){
+  return function nextApply(){
+    next.apply(next, args)
+  }
+}
+
 function storeMetaFactory(lookup) {
   return function storeFactory() {
     var keys = Array.prototype.slice.call(arguments)
@@ -15,7 +34,7 @@ function storeMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      nextTick(next, args)
     }
   }
 }
@@ -33,7 +52,7 @@ function valuesMetaFactory(lookup) {
         args.push(lookup[key])
       }
       args.unshift(null)
-      next.apply(null, args)
+      nextTick(next, args)
     }
   }
 }
@@ -53,7 +72,7 @@ function appendValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      nextTick(next, args)
     }
   }
 }
@@ -73,7 +92,7 @@ function prependValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      nextTick(next, args)
     }
   }
 }
@@ -86,7 +105,7 @@ function constantsFactory() {
     var next = args[lastArgIndex]
     args = outterArgs.slice()
     args.unshift(null)
-    next.apply(null, args)
+    nextTick(next, args)
   }
 }
 
@@ -99,7 +118,7 @@ function appendConstantsFactory() {
     args = args.slice(0, lastArgIndex)
     args.push.apply(args, outterArgs)
     args.unshift(null)
-    next.apply(null, args)
+    nextTick(next, args)
   }
 }
 
@@ -112,7 +131,7 @@ function prependConstantsFactory() {
     args = args.slice(0, lastArgIndex)
     args.unshift.apply(args, outterArgs)
     args.unshift(null)
-    next.apply(null, args)
+    nextTick(next, args)
   }
 }
 
@@ -140,7 +159,7 @@ function selectFactory (){
       }
     }
     newArgs.unshift(null)
-    next.apply(null, newArgs)
+    nextTick(next, newArgs)
   }
 }
 
