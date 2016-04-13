@@ -1,5 +1,11 @@
 var jp = require('jsonpointer')
 
+function nextApplyFactory(next, args){
+  return function nextApply(){
+    next.apply(next, args)
+  }
+}
+
 function storeMetaFactory(lookup) {
   return function storeFactory() {
     var keys = Array.prototype.slice.call(arguments)
@@ -15,7 +21,7 @@ function storeMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
@@ -33,7 +39,7 @@ function valuesMetaFactory(lookup) {
         args.push(lookup[key])
       }
       args.unshift(null)
-      next.apply(null, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
@@ -53,7 +59,7 @@ function appendValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
@@ -73,7 +79,7 @@ function prependValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      next.apply(null, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
@@ -86,7 +92,7 @@ function constantsFactory() {
     var next = args[lastArgIndex]
     args = outterArgs.slice()
     args.unshift(null)
-    next.apply(null, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
@@ -99,7 +105,7 @@ function appendConstantsFactory() {
     args = args.slice(0, lastArgIndex)
     args.push.apply(args, outterArgs)
     args.unshift(null)
-    next.apply(null, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
@@ -112,7 +118,7 @@ function prependConstantsFactory() {
     args = args.slice(0, lastArgIndex)
     args.unshift.apply(args, outterArgs)
     args.unshift(null)
-    next.apply(null, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
@@ -140,7 +146,7 @@ function selectFactory (){
       }
     }
     newArgs.unshift(null)
-    next.apply(null, newArgs)
+    process.nextTick(nextApplyFactory(next, newArgs))
   }
 }
 
