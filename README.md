@@ -37,6 +37,7 @@ interactive code example [here][3].
 * [appendConstants](#asyncargsappendconstantsconstant-constant-)
 * [prependConstants](#asyncargsprependconstantsconstant-constant-)
 * [select](#asyncargsselectselector-selector-)
+* [debug](#asyncargsdebugmsg-logger)
 
 [Instance Usage](#instance-usage)  
 The same static methods as above are available, in addition to the following:
