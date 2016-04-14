@@ -1,6 +1,21 @@
 var test = require('tape')
 var subject = require('../index')
 
+function hook_stdout(callback) {
+  var old_write = process.stdout.write
+
+  process.stdout.write = (function(write) {
+    return function(string, encoding, fd) {
+      write.apply(process.stdout, arguments)
+      callback(string, encoding, fd)
+    }
+  })(process.stdout.write)
+
+  return function() {
+    process.stdout.write = old_write
+  }
+}
+
 test('AsyncArgs.select: subset of args is passed to next',
   function (t) {
     t.plan(2)
@@ -185,4 +200,52 @@ test('asyncArgs.store: stores values for later retrieval',
       t.equal(actualA, expectedA)
       t.equal(actualB, expectedB)
     })
+  })
+
+test('AsyncArgs.debug: logs default message',
+  function(t){
+    t.plan(2)
+    var actual
+    var unhook = hook_stdout(function(stdout){
+      actual = stdout
+    })
+    var expected = "AsyncArgs: [ 'a', 'b' ]\n"
+    subject.debug()('a', 'b', function(err){
+      t.error(err)
+      t.equal(actual, expected)
+    })
+    unhook()
+  })
+
+test('AsyncArgs.debug: logs custom message',
+  function(t){
+    t.plan(2)
+    var actual
+    var unhook = hook_stdout(function(stdout){
+      actual = stdout
+    })
+    var expected = "test [ 'a', 'b' ]\n"
+    subject.debug('test')('a', 'b', function(err){
+      t.error(err)
+      t.equal(actual, expected)
+    })
+    unhook()
+  })
+
+test('AsyncArgs.debug: uses custom logger',
+  function(t){
+    t.plan(2)
+    var actual
+    var unhook = hook_stdout(function(stdout){
+      actual = stdout
+    })
+    var logger = function(msg, args){
+      console.log(msg + 'xxx')
+    }
+    var expected = "testxxx\n"
+    subject.debug('test', logger)('a', 'b', function(err){
+      t.error(err)
+      t.equal(actual, expected)
+    })
+    unhook()
   })
