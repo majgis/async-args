@@ -126,8 +126,7 @@ items or object properties from a single argument.
 **logger:** A function taking msg as the first argument and args array as the 
 second. The default is console.log.
 
-A selector can be a string, to select a subset of arguments coming from the 
-preceding function.  
+Output what the current arguments are.  All arguments pass through. 
 
     async.waterfall([
       outputArg1Arg2Arg3,  // (next)
