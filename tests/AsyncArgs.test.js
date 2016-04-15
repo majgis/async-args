@@ -249,3 +249,13 @@ test('AsyncArgs.debug: uses custom logger',
     })
     unhook()
   })
+
+test('asyncArgs.debug: passes through all arguments',
+  function (t) {
+    t.plan(3)
+    subject.debug()('a', 'b', function (err, a, b) {
+      t.error(err)
+      t.equal(a, 'a')
+      t.equal(b, 'b')
+    })
+  })
