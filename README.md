@@ -37,6 +37,7 @@ interactive code example [here][3].
 * [appendConstants](#asyncargsappendconstantsconstant-constant-)
 * [prependConstants](#asyncargsprependconstantsconstant-constant-)
 * [select](#asyncargsselectselector-selector-)
+* [debug](#asyncargsdebugmsg-logger)
 
 [Instance Usage](#instance-usage)  
 The same static methods as above are available, in addition to the following:
@@ -118,6 +119,23 @@ items or object properties from a single argument.
       AsyncArgs.select(['/a/b/1', /a/b/0']),  // (constant, next)
       aFunctionTakingTwoArgs                  // ('d', 'c', next)
     ], next)
+
+###AsyncArgs.debug([msg, [logger]])
+
+**msg:**  A string that replaces the default "AsyncArgs:" prefix  
+**logger:** A function taking msg as the first argument and args array as the 
+second. The default is console.log.
+
+A selector can be a string, to select a subset of arguments coming from the 
+preceding function.  
+
+    async.waterfall([
+      outputArg1Arg2Arg3,  // (next)
+      AsyncArgs.debug()    // (arg1, arg2, arg3, next)
+    ], next)
+    
+    // Output to console:
+    // AsyncArgs: [ 'arg1', 'arg2', 'arg3' ]
 
 ## Instance Usage
 

@@ -163,6 +163,20 @@ function selectFactory (){
   }
 }
 
+function debugFactory (msg, logger) {
+  msg = msg  || 'AsyncArgs:'
+  logger = logger || console.log
+  return function constants() {
+    var args = Array.prototype.slice.call(arguments)
+    var lastArgIndex = args.length - 1
+    var next = args[lastArgIndex]
+    args = args.slice(0, lastArgIndex)
+    logger(msg, args)
+    args.unshift(null)
+    nextTick(next, args)
+  }
+}
+
 function AsyncArgs(lookup) {
   lookup = lookup || {}
   return {
@@ -173,7 +187,8 @@ function AsyncArgs(lookup) {
     constants: constantsFactory,
     appendConstants: appendConstantsFactory,
     prependConstants: prependConstantsFactory,
-    select: selectFactory
+    select: selectFactory,
+    debug: debugFactory
   }
 }
 
@@ -181,5 +196,6 @@ AsyncArgs.constants = constantsFactory
 AsyncArgs.appendConstants = appendConstantsFactory
 AsyncArgs.prependConstants = prependConstantsFactory
 AsyncArgs.select = selectFactory
+AsyncArgs.debug = debugFactory
 
 module.exports = AsyncArgs
