@@ -80,6 +80,7 @@ function appendValuesMetaFactory(lookup) {
 function prependValuesMetaFactory(lookup) {
   return function prependValuesFactory() {
     var keys = Array.prototype.slice.call(arguments)
+    keys.reverse()
     return function prependValues() {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
