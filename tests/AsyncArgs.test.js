@@ -1,17 +1,17 @@
 var test = require('tape')
 var subject = require('../index')
 
-function hook_stdout(callback) {
+function hook_stdout (callback) {
   var old_write = process.stdout.write
 
-  process.stdout.write = (function(write) {
-    return function(string, encoding, fd) {
+  process.stdout.write = (function (write) {
+    return function (string, encoding, fd) {
       write.apply(process.stdout, arguments)
       callback(string, encoding, fd)
     }
   })(process.stdout.write)
 
-  return function() {
+  return function () {
     process.stdout.write = old_write
   }
 }
@@ -30,7 +30,7 @@ test('AsyncArgs.select: jsonpointer works with object',
   function (t) {
     t.plan(2)
     var expected = 'c'
-    subject.select(false, '/b')('a', {b:'c'}, function (err, actual) {
+    subject.select(false, '/b')('a', {b: 'c'}, function (err, actual) {
       t.error(err)
       t.equal(actual, expected)
     })
@@ -66,9 +66,9 @@ test('AsyncArgs.select: jsonpointer works with deeply nested object',
     t.plan(2)
     var expected = 'h'
     var obj = {
-      b:{
-        c:{
-          d:[
+      b: {
+        c: {
+          d: [
             'e',
             'f',
             {g: 'h'}
@@ -89,9 +89,9 @@ test('AsyncArgs.select: array of jsonpointers ',
     var expected1 = 'h'
     var expected2 = 'e'
     var obj = {
-      b:{
-        c:{
-          d:[
+      b: {
+        c: {
+          d: [
             'e',
             'f',
             {g: 'h'}
@@ -109,15 +109,20 @@ test('AsyncArgs.select: array of jsonpointers ',
 
 test('asyncArgs.prependValues: prepends arguments to the next function',
   function (t) {
-    t.plan(2)
+    t.plan(3)
     var subjectInstance = subject({
-      'test': 'testValue'
+      'test1': 'testValue1',
+      'test2': 'testValue2'
     })
-    var expected = 'testValue'
-    subjectInstance.prependValues('test')('a', function (err, actual) {
-      t.error(err)
-      t.equal(actual, expected)
-    })
+    var expected1 = 'testValue1'
+    var expected2 = 'testValue2'
+    subjectInstance.prependValues('test1', 'test2')('a',
+      function (err, actual1, actual2) {
+        t.error(err)
+        t.equal(actual1, expected1)
+        t.equal(actual2, expected2)
+      }
+    )
   })
 
 test('asyncArgs.appendValues: appends arguments to the next function',
@@ -148,12 +153,16 @@ test('asyncArgs.values: sets arguments to the next function',
 
 test('asyncArgs.prependConstants: prepends arguments to the next function',
   function (t) {
-    t.plan(2)
-    var expected = 'test'
-    subject.prependConstants('test')('a', function (err, actual) {
-      t.error(err)
-      t.equal(actual, expected)
-    })
+    t.plan(3)
+    var expected1 = 'test1'
+    var expected2 = 'test2'
+    subject.prependConstants('test1', 'test2')('a',
+      function (err, actual1, actual2) {
+        t.error(err)
+        t.equal(actual1, expected1)
+        t.equal(actual2, expected2)
+      }
+    )
   })
 
 test('asyncArgs.appendConstants: appends arguments to the next function',
@@ -203,14 +212,14 @@ test('asyncArgs.store: stores values for later retrieval',
   })
 
 test('AsyncArgs.debug: logs default message',
-  function(t){
+  function (t) {
     t.plan(2)
     var actual
-    var unhook = hook_stdout(function(stdout){
+    var unhook = hook_stdout(function (stdout) {
       actual = stdout
     })
     var expected = "AsyncArgs: [ 'a', 'b' ]\n"
-    subject.debug()('a', 'b', function(err){
+    subject.debug()('a', 'b', function (err) {
       t.error(err)
       t.equal(actual, expected)
     })
@@ -218,14 +227,14 @@ test('AsyncArgs.debug: logs default message',
   })
 
 test('AsyncArgs.debug: logs custom message',
-  function(t){
+  function (t) {
     t.plan(2)
     var actual
-    var unhook = hook_stdout(function(stdout){
+    var unhook = hook_stdout(function (stdout) {
       actual = stdout
     })
     var expected = "test [ 'a', 'b' ]\n"
-    subject.debug('test')('a', 'b', function(err){
+    subject.debug('test')('a', 'b', function (err) {
       t.error(err)
       t.equal(actual, expected)
     })
@@ -233,17 +242,17 @@ test('AsyncArgs.debug: logs custom message',
   })
 
 test('AsyncArgs.debug: uses custom logger',
-  function(t){
+  function (t) {
     t.plan(2)
     var actual
-    var unhook = hook_stdout(function(stdout){
+    var unhook = hook_stdout(function (stdout) {
       actual = stdout
     })
-    var logger = function(msg, args){
+    var logger = function (msg, args) {
       console.log(msg + 'xxx')
     }
     var expected = "testxxx\n"
-    subject.debug('test', logger)('a', 'b', function(err){
+    subject.debug('test', logger)('a', 'b', function (err) {
       t.error(err)
       t.equal(actual, expected)
     })
