@@ -198,11 +198,12 @@ test('asyncArgs.store: passes through all values',
 
 test('asyncArgs.store: stores values for later retrieval',
   function (t) {
-    t.plan(3)
+    t.plan(4)
     var subjectInstance = subject()
     var expectedA = 'a'
     var expectedB = 'b'
     subjectInstance.store('test1', 'test2')('a', 'b', function (err, a, b) {
+      t.error(err)
     })
     subjectInstance.values('test1', 'test2')(function (err, actualA, actualB) {
       t.error(err)
@@ -251,7 +252,7 @@ test('AsyncArgs.debug: uses custom logger',
     var logger = function (msg, args) {
       console.log(msg + 'xxx')
     }
-    var expected = "testxxx\n"
+    var expected = 'testxxx\n'
     subject.debug('test', logger)('a', 'b', function (err) {
       t.error(err)
       t.equal(actual, expected)
