@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "tape tests/*.test.js",
-    "test-auto": "fsmonitor -s '!.*' faucet"
+    "test-auto": "fsmonitor -s '!.*' faucet",
+    "standard": "standard",
+    "standard-format": "standard-format -w; standard"
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,10 @@
   "homepage": "https://github.com/majgis/async-args#readme",
   "devDependencies": {
     "faucet": "0.0.1",
-    "tape": "^4.5.1",
-    "fsmonitor": "^0.2.4"
+    "fsmonitor": "^0.2.4",
+    "standard": "^6.0.8",
+    "standard-format": "^2.1.1",
+    "tape": "^4.5.1"
   },
   "dependencies": {
     "jsonpointer": "^3.0.0"

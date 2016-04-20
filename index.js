@@ -1,28 +1,15 @@
 var jp = require('jsonpointer')
 
-var nextTick
-if (process && process.nextTick) {
-  nextTick = function nextTick (next, args) {
-    var callback = nextApplyFactory(next, args)
-    process.nextTick(callback)
-  }
-} else {
-  nextTick = function nextTick(next, args) {
-    var callback = nextApplyFactory(next, args)
-    setTimeout(callback, 0)
-  }
-}
-
-function nextApplyFactory(next, args){
-  return function nextApply(){
+function nextApplyFactory (next, args) {
+  return function nextApply () {
     next.apply(next, args)
   }
 }
 
-function storeMetaFactory(lookup) {
-  return function storeFactory() {
+function storeMetaFactory (lookup) {
+  return function storeFactory () {
     var keys = Array.prototype.slice.call(arguments)
-    return function store() {
+    return function store () {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -34,15 +21,15 @@ function storeMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      nextTick(next, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
 
-function valuesMetaFactory(lookup) {
-  return function valuesFactory() {
+function valuesMetaFactory (lookup) {
+  return function valuesFactory () {
     var keys = Array.prototype.slice.call(arguments)
-    return function values() {
+    return function values () {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -52,15 +39,15 @@ function valuesMetaFactory(lookup) {
         args.push(lookup[key])
       }
       args.unshift(null)
-      nextTick(next, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
 
-function appendValuesMetaFactory(lookup) {
-  return function appendValuesFactory() {
+function appendValuesMetaFactory (lookup) {
+  return function appendValuesFactory () {
     var keys = Array.prototype.slice.call(arguments)
-    return function appendValues() {
+    return function appendValues () {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -72,16 +59,16 @@ function appendValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      nextTick(next, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
 
-function prependValuesMetaFactory(lookup) {
-  return function prependValuesFactory() {
+function prependValuesMetaFactory (lookup) {
+  return function prependValuesFactory () {
     var keys = Array.prototype.slice.call(arguments)
     keys.reverse()
-    return function prependValues() {
+    return function prependValues () {
       var args = Array.prototype.slice.call(arguments)
       var lastArgIndex = args.length - 1
       var next = args[lastArgIndex]
@@ -93,65 +80,65 @@ function prependValuesMetaFactory(lookup) {
         }
       }
       args.unshift(null)
-      nextTick(next, args)
+      process.nextTick(nextApplyFactory(next, args))
     }
   }
 }
 
-function constantsFactory() {
+function constantsFactory () {
   var outterArgs = Array.prototype.slice.call(arguments)
-  return function constants() {
+  return function constants () {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = outterArgs.slice()
     args.unshift(null)
-    nextTick(next, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
-function appendConstantsFactory() {
+function appendConstantsFactory () {
   var outterArgs = Array.prototype.slice.call(arguments)
-  return function appendConstants() {
+  return function appendConstants () {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = args.slice(0, lastArgIndex)
     args.push.apply(args, outterArgs)
     args.unshift(null)
-    nextTick(next, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
-function prependConstantsFactory() {
+function prependConstantsFactory () {
   var outterArgs = Array.prototype.slice.call(arguments)
-  return function prependConstants() {
+  return function prependConstants () {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = args.slice(0, lastArgIndex)
     args.unshift.apply(args, outterArgs)
     args.unshift(null)
-    nextTick(next, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
-function selectFactory (){
+function selectFactory () {
   var selectArgs = Array.prototype.slice.call(arguments)
-  return function select(){
+  return function select () {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = args.slice(0, lastArgIndex)
     var newArgs = []
-    for (var i = 0; i < selectArgs.length; i++){
+    for (var i = 0; i < selectArgs.length; i++) {
       var selectArg = selectArgs[i]
-      if (selectArg){
+      if (selectArg) {
         var arg = args[i]
-        if (typeof selectArg === 'string' && selectArg.indexOf('/') === 0){
+        if (typeof selectArg === 'string' && selectArg.indexOf('/') === 0) {
           newArgs.push(jp.get(arg, selectArg))
-        } else if (selectArg instanceof Array){
-          for (var j = 0; j < selectArg.length; j++){
+        } else if (selectArg instanceof Array) {
+          for (var j = 0; j < selectArg.length; j++) {
             newArgs.push(jp.get(arg, selectArg[j]))
           }
         } else {
@@ -160,25 +147,25 @@ function selectFactory (){
       }
     }
     newArgs.unshift(null)
-    nextTick(next, newArgs)
+    process.nextTick(nextApplyFactory(next, newArgs))
   }
 }
 
 function debugFactory (msg, logger) {
-  msg = msg  || 'AsyncArgs:'
+  msg = msg || 'AsyncArgs:'
   logger = logger || console.log
-  return function constants() {
+  return function constants () {
     var args = Array.prototype.slice.call(arguments)
     var lastArgIndex = args.length - 1
     var next = args[lastArgIndex]
     args = args.slice(0, lastArgIndex)
     logger(msg, args)
     args.unshift(null)
-    nextTick(next, args)
+    process.nextTick(nextApplyFactory(next, args))
   }
 }
 
-function AsyncArgs(lookup) {
+function AsyncArgs (lookup) {
   lookup = lookup || {}
   return {
     store: storeMetaFactory(lookup),
