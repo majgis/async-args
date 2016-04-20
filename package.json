@@ -1,6 +1,6 @@
 {
   "name": "async-args",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A utility for use in conjunction with async.",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,8 @@
     "url": "git+https://github.com/majgis/async-args.git"
   },
   "keywords": [
-    "utility", 
-    "callback", 
+    "utility",
+    "callback",
     "async",
     "args",
     "arguments"
