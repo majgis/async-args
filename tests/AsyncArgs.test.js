@@ -269,3 +269,21 @@ test('asyncArgs.debug: passes through all arguments',
       t.equal(b, 'b')
     })
   })
+
+test('asyncArgs.order: reorders args',
+  function (t) {
+    t.plan(5)
+    var expected0 = '2'
+    var expected1 = '3'
+    var expected2 = '0'
+    var expected3 = '1'
+    subject.order(2, 3, 0, 1)('0', '1', '2', '3',
+      function (err, actual0, actual1, actual2, actual3) {
+        t.error(err)
+        t.equal(actual0, expected0)
+        t.equal(actual1, expected1)
+        t.equal(actual2, expected2)
+        t.equal(actual3, expected3)
+      }
+    )
+  })
