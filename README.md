@@ -37,6 +37,7 @@ interactive code example [here][3].
 * [appendConstants](#asyncargsappendconstantsconstant-constant-)
 * [prependConstants](#asyncargsprependconstantsconstant-constant-)
 * [select](#asyncargsselectselector-selector-)
+* [order](#asyncargsorderinteger-integer-)
 * [debug](#asyncargsdebugmsg-logger)
 
 [Instance Usage](#instance-usage)  
@@ -118,6 +119,16 @@ items or object properties from a single argument.
       AsyncArgs.constants(constant),          // (next)
       AsyncArgs.select(['/a/b/1', /a/b/0']),  // (constant, next)
       aFunctionTakingTwoArgs                  // ('d', 'c', next)
+    ], next)
+
+###AsyncArgs.order([integer], [integer], ...)
+
+Change the order of the arguments.
+
+    async.waterfall([
+      outputArg1Arg2Arg3,        // (next)
+      AsyncArgs.order(2, 0, 1),  // (arg1, arg2, arg3, next)
+      aFunctionTakingTwoArgs     // (arg3, arg1, arg2, next)
     ], next)
 
 ###AsyncArgs.debug([msg, [logger]])
