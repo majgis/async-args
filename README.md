@@ -128,7 +128,7 @@ Change the order of the arguments.
     async.waterfall([
       outputArg1Arg2Arg3,        // (next)
       AsyncArgs.order(2, 0, 1),  // (arg1, arg2, arg3, next)
-      aFunctionTakingTwoArgs     // (arg3, arg1, arg2, next)
+      aFunctionTakingThreeArgs   // (arg3, arg1, arg2, next)
     ], next)
 
 ###AsyncArgs.debug([msg, [logger]])
@@ -203,7 +203,7 @@ from the preceding function.
       asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgsAndOutputArg4,    // (arg1, arg2, arg3, next)
       asyncArgs.appendValues('arg2'),           // (arg4, next)
-      aFunctionTakingOneArg                     // (arg4, arg2, next)
+      aFunctionTakingTwoArgs                    // (arg4, arg2, next)
     ], next)
 
 ###asyncArgs.prependValues([key1], [key2], ...)
@@ -216,7 +216,7 @@ from the preceding function.
       asyncArgs.store('arg1', 'arg2', 'arg3'),  // (arg1, arg2, arg3, next)
       aFunctionTakingThreeArgsAndOutputArg4,    // (arg1, arg2, arg3, next)
       asyncArgs.prependValues('arg2'),          // (arg4, next)
-      aFunctionTakingOneArg                     // (arg2, arg4, next)
+      aFunctionTakingTwoArgs                    // (arg2, arg4, next)
     ], next)
 
 [0]: https://www.npmjs.com/package/async#waterfalltasks-callback
