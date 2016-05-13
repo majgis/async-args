@@ -1,6 +1,10 @@
 #async-args
 
 [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+[![bitHound Overall Score](https://www.bithound.io/github/majgis/async-args/badges/score.svg)](https://www.bithound.io/github/majgis/async-args)
+[![bitHound Dependencies](https://www.bithound.io/github/majgis/async-args/badges/dependencies.svg)](https://www.bithound.io/github/majgis/async-args/bithound/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/majgis/async-args/badges/devDependencies.svg)](https://www.bithound.io/github/majgis/async-args/bithound/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/majgis/async-args/badges/code.svg)](https://www.bithound.io/github/majgis/async-args)
 
 A utility for use in conjunction with [async][2]
 or similar libraries to help with passing and storing arguments between 
