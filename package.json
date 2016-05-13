@@ -6,8 +6,8 @@
   "scripts": {
     "test": "tape tests/*.test.js",
     "test-auto": "fsmonitor -s '!.*' faucet",
-    "standard": "standard",
-    "standard-format": "standard-format -w; standard"
+    "style": "semistandard",
+    "style-format": "semistandard-format -w; semistandard"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
   "devDependencies": {
     "faucet": "0.0.1",
     "fsmonitor": "^0.2.4",
-    "standard": "^6.0.8",
-    "standard-format": "^2.1.1",
+    "semistandard": "^7.0.5",
+    "semistandard-format": "^3.0.0",
     "tape": "^4.5.1"
   },
   "dependencies": {
