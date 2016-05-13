@@ -4,7 +4,7 @@
   "description": "A utility for use in conjunction with async.",
   "main": "index.js",
   "scripts": {
-    "test": "tape tests/*.test.js",
+    "test": "tape 'test/**/*.test.js'",
     "test-auto": "fsmonitor -s '!.*' faucet",
     "style": "semistandard",
     "style-format": "semistandard-format -w; semistandard"
