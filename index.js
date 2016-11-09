@@ -1,4 +1,5 @@
 var jp = require('jsonpointer');
+var defaultMessage = 'AsyncArgs:';
 
 function nextApplyFactory (next, args) {
   return function nextApply () {
@@ -152,7 +153,7 @@ function selectFactory () {
 }
 
 function debugFactory (msg, logger) {
-  msg = msg || 'AsyncArgs:';
+  msg = msg || defaultMessage;
   logger = logger || console.log;
   return function debug () {
     var args = Array.prototype.slice.call(arguments);
@@ -182,6 +183,24 @@ function orderFactory () {
   };
 }
 
+function errorFactory (msg) {
+  var error;
+  msg = msg || defaultMessage + ' test';
+  if (msg.message){
+    error = msg
+  } else {
+    error = new Error(msg)
+  }
+  var args = Array.prototype.slice.call(arguments);
+  var lastArgIndex = args.length;
+  args = args.slice(1, lastArgIndex);
+  args.unshift(error);
+  return function error () {
+    var next = arguments[arguments.length - 1];
+    process.nextTick(nextApplyFactory(next, args));
+  };
+}
+
 function AsyncArgs (lookup) {
   lookup = lookup || {};
   return {
@@ -194,7 +213,8 @@ function AsyncArgs (lookup) {
     prependConstants: prependConstantsFactory,
     select: selectFactory,
     debug: debugFactory,
-    order: orderFactory
+    order: orderFactory,
+    error: errorFactory
   };
 }
 
@@ -204,5 +224,6 @@ AsyncArgs.prependConstants = prependConstantsFactory;
 AsyncArgs.select = selectFactory;
 AsyncArgs.debug = debugFactory;
 AsyncArgs.order = orderFactory;
+AsyncArgs.error = errorFactory;
 
 module.exports = AsyncArgs;

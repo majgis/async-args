@@ -45,6 +45,7 @@ interactive code example [here][3].
 * [select](#asyncargsselectselector-selector-)
 * [order](#asyncargsorderinteger-integer-)
 * [debug](#asyncargsdebugmsg-logger)
+* [error](#asyncargserrormsg-
 
 [Instance Usage](#instance-usage)  
 The same static methods as above are available, in addition to the following:
@@ -152,6 +153,14 @@ Output what the current arguments are.  All arguments pass through.
     
     // Output to console:
     // AsyncArgs: [ 'arg1', 'arg2', 'arg3' ]
+
+###AsyncArgs.error([msg, [args,...]])
+
+**msg:**  A string that replaces the default "AsyncArgs: test" error
+message
+**args:**  Arguments that will be passed along with the error
+
+Create an error
 
 ## Instance Usage
 

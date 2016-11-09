@@ -287,3 +287,30 @@ test('asyncArgs.order: reorders args',
       }
     );
   });
+
+test('asyncArgs.error: passes default error',
+  function (t) {
+    t.plan(1);
+    subject.error()( function (err) {
+      t.equal(err.message, 'AsyncArgs: test');
+    });
+  });
+
+test('asyncArgs.error: passes error with custom msg',
+  function (t) {
+    t.plan(1);
+    var msg='test'
+    subject.error(msg)( function (err) {
+      t.equal(err.message, msg);
+    });
+  });
+
+test('asyncArgs.error: passes default error and additional args',
+  function (t) {
+    t.plan(3);
+    subject.error(null, 'a', 'b')( function (err, a, b) {
+      t.equal(err.message, 'AsyncArgs: test');
+      t.equal(a, 'a');
+      t.equal(b, 'b');
+    });
+  });
