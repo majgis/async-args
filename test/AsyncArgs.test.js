@@ -1,8 +1,8 @@
 var test = require('tape');
 var subject = require('../index');
 
-function hook_stdout (callback) {
-  var old_write = process.stdout.write;
+function hookStdout (callback) {
+  var oldWrite = process.stdout.write;
 
   process.stdout.write = (function (write) {
     return function (string, encoding, fd) {
@@ -12,7 +12,7 @@ function hook_stdout (callback) {
   })(process.stdout.write);
 
   return function () {
-    process.stdout.write = old_write;
+    process.stdout.write = oldWrite;
   };
 }
 
@@ -216,7 +216,7 @@ test('AsyncArgs.debug: logs default message',
   function (t) {
     t.plan(2);
     var actual;
-    var unhook = hook_stdout(function (stdout) {
+    var unhook = hookStdout(function (stdout) {
       actual = stdout;
     });
     var expected = "AsyncArgs: [ 'a', 'b' ]\n";
@@ -231,7 +231,7 @@ test('AsyncArgs.debug: logs custom message',
   function (t) {
     t.plan(2);
     var actual;
-    var unhook = hook_stdout(function (stdout) {
+    var unhook = hookStdout(function (stdout) {
       actual = stdout;
     });
     var expected = "test [ 'a', 'b' ]\n";
@@ -246,7 +246,7 @@ test('AsyncArgs.debug: uses custom logger',
   function (t) {
     t.plan(2);
     var actual;
-    var unhook = hook_stdout(function (stdout) {
+    var unhook = hookStdout(function (stdout) {
       actual = stdout;
     });
     var logger = function (msg, args) {
